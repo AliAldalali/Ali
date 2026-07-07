@@ -1,0 +1,52 @@
+def calculate_student_grade_seven_subjects():
+    scores = []
+    num_subjects = 7
+    has_failed_subject = False # Flag to track if any subject score is below 50
+    for i in range(num_subjects):
+        while True:
+            try:
+                score_input = input(f"أدخل درجة المادة رقم {i+1} (بين 0 و 100): ")
+                score = float(score_input)
+                if 0 <= score <= 100:
+                    scores.append(score)
+                    if score < 50: # Check for failure condition
+                        has_failed_subject = True
+                    break
+                else:
+                    print("الدرجة يجب أن تكون بين 0 و 100. يرجى المحاولة مرة أخرى.")
+            except ValueError:
+                print("إدخال غير صالح. يرجى إدخال رقم.")
+
+    if not scores:
+        print("لم يتم إدخال أي درجات.")
+        return
+
+    average = sum(scores) / len(scores)
+
+    evaluation = ""
+    if average >= 90:
+        evaluation = "ممتاز"
+    elif average >= 80:
+        evaluation = "جيد جدا"
+    elif average >= 70:
+        evaluation = "جيد"
+    elif average >= 60:
+        evaluation = "مقبول"
+    else:
+        evaluation = "راسب"
+
+    result = ""
+    if has_failed_subject: # Override result if any subject score is below 50
+        result = "راسب"
+    elif average >= 60:
+        result = "ناجح"
+    else:
+        result = "راسب"
+
+    print(f"\nالدرجات المدخلة: {scores}")
+    print(f"معدل الطالب: {average:.2f}")
+    print(f"التقدير: {evaluation}")
+    print(f"النتيجة: {result}")
+
+# استدعاء الدالة لتشغيلها
+calculate_student_grade_seven_subjects()
